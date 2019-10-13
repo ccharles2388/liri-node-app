@@ -93,8 +93,32 @@ File Structures:
 
     -|README.md  - Current Code Section 10-12-2019 
     
-Give start-to-finish instructions on how to run the app
+User start-to-finish instructions on how to run the app
+    User Runs App - noode liri.js
+    User is presented with a event inquirer and options:
+        ? What Would You Like To Do Today? You Can Select By Options (Use arrow keys)
+            > con=concert-this 
+              spot=spotify-this-song 
+              mov=movie-this 
+              do=do-what-it-says 
+    User makes selection by using arrows keys to make event choice
+    Upon Selection User Is Presented With Information :
+        con=concert-this ( Shows Concerts For Artist Inputed)
+        spot=spotify-this-song ( Shows Songs For Artist Inputed)
+        mov=movie-this ( Shows Movies For Movie Query Inputed)
+        do=do-what-it-says ( Shows Txt File Information In File)
 Include screenshots, gifs or videos of the app functioning
-Contain a link to a deployed version of the app
-Clearly list the technologies used in the app
-State your role in the app development
+Deployed version of the app - https://github.com/ccharles2388/liri-node-app/blob/master/liri.js
+
+Technologies used in the app :
+    node and node modules
+    inquirer for user prompts
+    moment for date formatting
+    axios for data send and recieved responses
+    API Key Query for data fetching
+    Javascript 
+    Json 
+    eslint for customized configurations
+    Git Hub
+
+Curtis Charles - Key Creative Developer And Programmer -
