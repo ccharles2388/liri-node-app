@@ -124,27 +124,25 @@ function helpWithMovie() {
             message: 'What Movie Would You Like To Look Up?',
         }])
         .then((answers) => {
-            // console.log(answers.movies);
+        
+           
             // Omdbapi Movie Source
             // Constructing a queryURL using the movies name and limit 1 movie
-            var querymoviesURL = " http://www.omdbapi.com/?i=tt3896198&apikey=9341ab9f" + answers.movies +  "&limit=1";
-            console.log(answers); 
+            var querymoviesURL = " http://www.omdbapi.com/?i=tt3896198&apikey=9341ab9f&t=" + answers.movies + "&plot=full" ;
+           
             //  Get Data Via Axios
             axios.get(querymoviesURL)
 
                 // After data comes back from the request
                 .then(function (response) {
+                    
                     var movresults = response.data;
-                    if (movresults.length===0) {
-                        console.log( "There is No Movie Information At This Time");
-                         getInput();
-                    }
-                    for (var i = 0; i < movresults.length; i++) {
-                        var movevent = movresults[i];
-                        console.log(movevent);
+                    console.log("Movie Results: ",movresults);
+                    console.log("Title: ",movresults.Title);
+                    console.log("Year: ",movresults.Year);
+                    console.log("Ratings: ",movresults.Ratings);    
                         
-                        
-                    }
+                    // }
 
                 })
         });
@@ -153,6 +151,7 @@ function helpWithMovie() {
 function helpWithDowhat() {
    
             //  Get Data Via Spotify Search
+
             spotify.search({ type: 'track', query: "I Want it That Way"}, function(err, data) {
                 if (err) {
                   return console.log('Error occurred: ' + err);
@@ -171,7 +170,7 @@ function helpWithDowhat() {
                     console.log(songresponse[i].album.name); 
                     console.log(songresponse[i].name); 
                     console.log(songresponse[i].preview_url); 
-                    console.log("--------------------------------");
+                    console.log("----------------------------------------------------------");
                
             }
             // console.log(songresponse[0]);
