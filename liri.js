@@ -20,26 +20,28 @@ function getInput() {
             choices: ['con=concert-this', 'spot=spotify-this-song', 'mov=movie-this', 'do=do-what-it-says','end=quit']
         }])
         .then((answers) => {
-            switch (answers.action) {
-                case 'con=concert-this':
-                    helpWithConcert();
-                    break;
-
-                case 'spot=spotify-this-song':
-                    helpWithSong();
-                    break;
-                case 'mov=movie-this':
-                    helpWithMovie();
-                    break;
-                case 'do=do-what-it-says':
-                    helpWithDowhat();
-                    break;
-                case 'end=quit':
-                    break;
-            }
+            commandSwitch(answers)
         });
 }
+function commandSwitch(answers,search) {
+    switch (answers.action) {
+        case 'con=concert-this':
+            helpWithConcert();
+            break;
 
+        case 'spot=spotify-this-song':
+            helpWithSong(search);
+            break;
+        case 'mov=movie-this':
+            helpWithMovie();
+            break;
+        case 'do=do-what-it-says':
+            helpWithDowhat();
+            break;
+        case 'end=quit':
+            break;
+    }
+}
 
 function helpWithConcert() {
     inquirer.prompt([
@@ -77,7 +79,7 @@ function helpWithConcert() {
         });
 }
 
-function helpWithSong() {
+function helpWithSong(search) {
     inquirer.prompt([
         {
             name: 'songs',
@@ -87,7 +89,7 @@ function helpWithSong() {
             // console.log(answers.songs);
 
             //  Get Data Via Spotify Search
-            spotify.search({ type: 'track', query: answers.songs}, function(err, data) {
+            spotify.search({ type: 'track', query: search ? search : answers.songs}, function(err, data) {
                 if (err) {
                   return console.log('Error occurred: ' + err);
                 }
@@ -151,30 +153,19 @@ function helpWithMovie() {
 function helpWithDowhat() {
    
             //  Get Data Via Spotify Search
+            fs.readFile('random.txt', 'utf8', function(err, contents) {
 
-            spotify.search({ type: 'track', query: "I Want it That Way"}, function(err, data) {
-                if (err) {
-                  return console.log('Error occurred: ' + err);
-                }
-                
-                var songresponse=data.tracks.items;
-                if (songresponse.length===0) {
-                    console.log( "There is No Song Information At This Time");
-                     getInput();
-                }
-               
-                   for (var i = 0; i < songresponse.length; i++) {
-                   
-                    console.log(songresponse[i].artists.map(artist => artist.name)); 
-                    
-                    console.log(songresponse[i].album.name); 
-                    console.log(songresponse[i].name); 
-                    console.log(songresponse[i].preview_url); 
-                    console.log("----------------------------------------------------------");
-               
-            }
-            // console.log(songresponse[0]);
-              })};
+                console.log(contents);
+
+            var words =  contents.split(',');
+            var answers = {
+            action: words[0]
+            };
+            console.log(words,answers);
+            commandSwitch(answers, words[1]);
+
+            });
+           };
                 
                 
               
